@@ -1,0 +1,121 @@
+
+<!-- this would be placed insid eof the entire CONTENT field in Site Editor-->
+
+<head>
+<link href="/assets/static/interactives/abc-beforeafter/css/beforeafter.css?v=2" rel="stylesheet">    
+
+<style type="text/css">
+
+#bn_container, #live_indicator{
+display:none!important;
+}
+
+
+.answer{
+font-size:18px;
+}
+/* Preloader */
+
+
+#preloader {
+    position:absolute; 
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff; /* change if the mask should have another color then white */
+    z-index:9999999; /* makes sure it stays on top */
+}
+
+#status {
+    margin:0 auto;
+    text-align: center;
+    position: relative;
+    display: block;
+    margin-top: 200px;
+   
+}
+
+#status img{
+max-width: 367px ;
+width:90%;
+}
+
+
+</style>
+
+
+
+
+<script type="text/javascript">
+
+  //this function loads the google spreadsheet as JSON          
+function displayContent(json) {
+    var len = json.feed.entry.length;
+    var divtag = '';
+    for (var i = 0; i < len; i++) {
+        divtag += '<div class="before_after_sliderOuter"> '  + '<div class="question" id="' + "question" + i + '">' + json.feed.entry[i].gsx$question.$t+    '</div>' + '<div class="before_after_slider">'   + 
+'<div class="afterimage">' + '<img  src="' + json.feed.entry[i].gsx$backimage.$t+'"' + '>' +'</div>'+  
+'<div class="beforeimage">' + '<img  src="' + json.feed.entry[i].gsx$frontimage.$t+'"' + '>' +'</div>' 
++'<img id ="dragger" src="/assets/static/interactives/abc-beforeafter/img/sliderabc.png?v2">' +
+ '</div>' + '<div class="answerBox">'  + '<div class="answer">' + json.feed.entry[i].gsx$answer.$t + '</div>' +'<div id="socialwrapper">' + '<img src="http://abcnews.go.com/assets/static/interactives/imageDragger/img/fb-icon.jpg?v=2" class="fbshareApp" id="' + i + '"/>' + '<img src="http://abcnews.go.com/assets/static/interactives/imageDragger/img/twitter-icon.jpg" class="tweetApp" id="' + i + '">' +'</div>' +'</div>' + '<div class="credits">' + json.feed.entry[i].gsx$credits.$t + '</div>' + '<div style="width:100%; height: 1px; border-top: 1px solid #d4d4d4; margin-top:20px;">' +'</div>' + '</div>';
+    }
+       
+    $('#boxes').html(divtag);
+
+
+} 
+ </script>
+	
+
+</head>
+
+
+<body>
+
+	<!-- FB -->
+ <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1515132732107616',
+          status     : true,
+          xfbml      : true
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><img src="http://abcnews.go.com/assets/static/interactives/socialsharing/img/abc_interactive-loading.gif" /></div>
+</div>
+
+
+<!--content will be place dinside this div-->
+<div id="boxes"></div>
+
+
+<!-- reference to Jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!--reference to spreadsheet-->
+<script src="https://spreadsheets.google.com/feeds/list/1Mvg3RJ-9NuodyD7tSWMSyMsCeA1_pK8KKGma0uhZktQ/od6/public/values?alt=json-in-script&amp;callback=displayContent"></script> 
+<!-- reference to jquery mobile-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+<!--reference to before and after js-->
+<script src="/assets/static/interactives/abc-beforeafter/js/beforeafter.js?v=2"></script>
+<!--reference to services for social sharing-->
+<script src="/assets/static/interactives/abc-beforeafter/js/service.js?v=2"></script>
+
+
+
+</body>
